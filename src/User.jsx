@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function WordUser() {
-    const [user, setUser] = useState({ id: 0, userName: '', password: '' })
-    const [userList, setUserList] = useState([{ id: 0, userName: '', password: '' }])
+    const [user, setUser] = useState({ id: 0, Username: '', Password: '' })
+    const [userList, setUserList] = useState([{ id: 0, Username: '', Password: '' }])
     const [userReflesh, setUserReflesh] = useState(false);
 
 
@@ -24,7 +24,7 @@ export default function WordUser() {
             .then((res) => setUserList(res.data));
     }
     const userAdd = () => {
-        axios.post('https://localhost:44376/api/Users/', user)
+        axios.post('https://localhost:44376/api/Users', user)
             .then(() => { getUser() });
         setUserReflesh(!userReflesh)
     }
@@ -37,16 +37,16 @@ export default function WordUser() {
     return (<div >
         {
             userList.map((usr) => {
-                return <div key={usr.id}>{usr.id}||{usr.userName}||{usr.password}</div>
+                return <div key={usr.id}>{usr.id}||{usr.username}||{usr.password}</div>
             })
         }
 
         <div className='col-md-6'>
             <div className='form-group'>
-                username:<input className='form-control' name='userName' type='text' onChange={setEkelencekVal} />
+                username:<input className='form-control' name='Username' type='text' onChange={setEkelencekVal} />
             </div>
             <div className='form-group'>
-                password:<input className='form-control' name='password' type='text' onChange={setEkelencekVal} />
+                password:<input className='form-control' name='Password' type='text' onChange={setEkelencekVal} />
             </div>
             <button onClick={userAdd} >Kaydet</button>
         </div>
