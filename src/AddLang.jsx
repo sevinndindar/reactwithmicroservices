@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from "react";
-
-export function AddLng(props){
+import axios from "axios";
+export function AddLang(props){
 
     
 
@@ -12,23 +12,25 @@ export function AddLng(props){
     },[props.lngToUpdate])
 
     
+    const  postData=()=>{
+     
+        if(eklenecekLng.id)
+        {
+          axios.put('http://localhost:7912/api/Langs/'+eklenecekLng.id,eklenecekLng)
+        .then(()=>{props.refreshData()});
+        }
+        else
+        {
+        axios.post('http://localhost:7912/api/Langs/',eklenecekLng)
+        .then(()=>{props.refreshData()});
+        }
 
-    const postData=()=>{
-       // console.log(props);
-       // console.log(eklenecekLng);
-        props.postData(eklenecekLng);
-    }
+   setEklenecekLng({id:0,code:'',name:''});
+      }
+    
 
     const setEkelencekVal=(event)=>{
         
-        // var existing={id:0,name:'',code:''};
-        // existing.id=eklenecekLng.id;
-        // existing.name=eklenecekLng.name;
-        // existing.code=eklenecekLng.code;
-
-        // existing[event.target.name]= event.target.value
-        // setEklenecekLng(existing);
-
         setEklenecekLng(prevState => ({
             ...prevState,
             [event.target.name]: event.target.value
